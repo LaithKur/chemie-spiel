@@ -44,6 +44,7 @@ body {
 
 .card-back {
   background-image: url('https://i.postimg.cc/wBt2ymxK/S-uren.png');
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
