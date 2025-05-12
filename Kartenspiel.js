@@ -115,3 +115,8 @@ document.getElementById('done-container').addEventListener('click', function (e)
     cardContainer.appendChild(closeButton);
   }
 });
+
+
+document.querySelectorAll('.card-input').forEach(input => {
+  input.setAttribute('autocomplete', 'off');
+});
