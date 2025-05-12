@@ -189,4 +189,28 @@ button:hover {
   transform: translate(-50%, -50%) scale(5);
   z-index: 999;
 }
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    width: 80px;
+    height: 160px;
+  }
+
+  .card, .card-face {
+    width: 80px;
+    height: 160px;
+    font-size: 70px;
+  }
+
+  .card-face .text {
+    font-size: 8px;
+  }
+
+  .card-input {
+    font-size: 8px;
+  }
+  #done-container {
+  width: calc(35% - 40px);
+  height: 120px;
+}
+}
 
