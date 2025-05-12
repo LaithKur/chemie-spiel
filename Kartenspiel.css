@@ -53,6 +53,9 @@ body {
   background: grey;
   color: #1e293b;
   transform: rotateY(180deg);
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .container.zoomed {
