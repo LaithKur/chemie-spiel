@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Kartenspiel</title>
+  <link rel="stylesheet" href="Kartenspiel.css">
+</head>
+<body>
+  <button onclick="shuffleCards()">Karten mischen</button>
+
+  <div id="cards-container">
+    <!-- البطاقة الأولى -->
+    <div class="container" id="card-1" onclick="flipAndZoom(this)">
+      <div class="card">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front">
+          <div class="text">
+            <br>Was ist Säuren?<br><br>
+            <input type="text" class="card-input" data-correct="1"> 
+            und Laugen ist 
+            <input type="text" class="card-input" data-correct="2"> jhf.
+          </div>
+        </div>
+      </div>
+      <button class="prüfen" onclick="event.stopPropagation(); prüfen(this)">Prüfen</button>
+    </div>
+
+    <!-- بطاقة أخرى كمثال -->
+    <div class="container" id="card-2" onclick="flipAndZoom(this)">
+      <div class="card">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front">
+          <div class="text">
+            <input type="text" class="card-input" data-correct="4" />
+          </div>
+        </div>
+      </div>
+      <button class="prüfen" onclick="event.stopPropagation(); prüfen(this)">Prüfen</button>
+    </div>
+  </div>
+
+<div id="done-container"></div>
+
+
+
+  <script src="Kartenspiel.js"></script>
+</body>
+</html>

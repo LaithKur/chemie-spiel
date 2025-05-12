@@ -1,0 +1,184 @@
+body {
+  height: 100vh;
+  background-image: url('https://images.pexels.com/photos/172277/pexels-photo-172277.jpeg?auto=compress&cs=tinysrgb&w=600');
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  overflow: hidden;
+}
+.container {
+  width: 50px;
+  height: 100px;
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  transform:translate(-100px, 0);
+}
+
+.card {
+  width: 50px;
+  height: 100px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  position: relative;
+}
+
+.card-face {
+  position: absolute;
+  width: 50px;
+  height: 100px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  font-weight: bold;
+  backface-visibility: hidden;
+  overflow: hidden;
+  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.card-back {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  background-image: url('https://i.postimg.cc/wBt2ymxK/S-uren.png');
+  color: white;
+}
+
+.card-front {
+  background: grey;
+  color: #1e293b;
+  transform: rotateY(180deg);
+}
+
+.container.zoomed {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(5);
+  z-index: 999;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face .text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start; 
+  align-items: center;
+  text-align: center;
+  font-size: 5px;  
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;   
+  white-space: normal;  
+}
+
+.card-input {
+  width: auto;
+  height: auto;
+  font-size: 5px;
+  text-align: center;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: inherit;
+  box-sizing: border-box;
+  white-space: nowrap;  
+  overflow: hidden;     
+  text-overflow: ellipsis; 
+  background-color:white;
+  width:50%;
+}
+
+button {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  transform: translate(0, 130px);
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+.container .prüfen {
+  position: absolute;
+  left:50%;
+  top:90%;
+  transform: translateX(-50%) scale(0.25);
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.container.zoomed .prüfen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#done-container {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: calc(20% - 40px);
+  height: 120px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+
+
+.close-button {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  top:96%;
+  transform: translateX(-50%) scale(0.25);
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 20px 20px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+
+.done-container.zoomed {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 100px;
+  transform: translate(-50%, -50%) scale(5);
+  z-index: 999;
+}
