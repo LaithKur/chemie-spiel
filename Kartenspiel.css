@@ -24,7 +24,13 @@ body {
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+ transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
 }
+
+
 
 .card-face {
   position: absolute;
