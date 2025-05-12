@@ -191,86 +191,74 @@ button:hover {
 }
 
 
-/* للموبايل - شاشات صغيرة */
+/* للموبايل */
 @media (max-width: 600px) {
-  body {
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 10px;
-    overflow: auto;
-  }
-
-  .container {
-    width: 40px;
-    height: 80px;
-    transform: translate(0, 0);
-    position: relative;
-  }
-
-  .card {
+  .container, .card, .card-face {
     width: 40px;
     height: 80px;
   }
 
   .card-face {
-    width: 40px;
-    height: 80px;
     font-size: 8px;
   }
 
   .card-input {
     font-size: 6px;
-    width: 60%;
+    width: 70%;
   }
 
   button {
-    transform: translate(0, 100px);
     font-size: 14px;
-    padding: 8px 16px;
+    padding: 8px 14px;
+    transform: translate(0, 100px);
+  }
+
+  .container.zoomed {
+    transform: translate(-50%, -50%) scale(2.2);
   }
 
   #done-container {
     width: 90%;
     height: auto;
     flex-wrap: wrap;
-    overflow-x: auto;
-    padding: 5px;
-  }
-
-  .prüfen, .close-button {
-    transform: translateX(-50%) scale(0.4);
-  }
-}
-
-/* للتابلت - شاشات متوسطة */
-@media (min-width: 601px) and (max-width: 1024px) {
-  .container {
-    width: 45px;
-    height: 90px;
-  }
-
-  .card, .card-face {
-    width: 45px;
-    height: 90px;
-    font-size: 12px;
-  }
-
-  .card-input {
-    font-size: 8px;
-  }
-
-  button {
-    font-size: 15px;
-    padding: 10px 18px;
-  }
-
-  #done-container {
-    width: 60%;
-    height: auto;
   }
 
   .prüfen, .close-button {
     transform: translateX(-50%) scale(0.35);
+  }
+}
+
+/* للآيباد */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .container, .card, .card-face {
+    width: 45px;
+    height: 90px;
+  }
+
+  .card-face {
+    font-size: 10px;
+  }
+
+  .card-input {
+    font-size: 7px;
+    width: 65%;
+  }
+
+  button {
+    font-size: 15px;
+    padding: 9px 18px;
+  }
+
+  .container.zoomed {
+    transform: translate(-50%, -50%) scale(2.3);
+  }
+
+  #done-container {
+    width: 70%;
+    height: auto;
+  }
+
+  .prüfen, .close-button {
+    transform: translateX(-50%) scale(0.38);
   }
 }
