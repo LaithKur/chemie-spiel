@@ -1,0 +1,147 @@
+let isAdmin = false; // لتتبع ما إذا كان المستخدم أدمن
+let selectedDevice = ''; // لتتبع الجهاز المحدد
+
+const previewContainer = document.getElementById("previewContainer");
+
+document.addEventListener("DOMContentLoaded", () => {
+  const fileInput = document.getElementById("fileInput");
+
+  fileInput.addEventListener("change", () => {
+    previewContainer.innerHTML = ""; // تنظيف الصور القديمة
+
+    Array.from(fileInput.files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.style.width = "150px";
+        img.style.margin = "10px";
+        img.style.borderRadius = "8px";
+        previewContainer.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+});
+let images = [];
+
+function fetchImages() {
+    fetch('/images')
+        .then(response => response.json())
+        .then(data => {
+            images = data;
+            renderImages();
+        });
+}
+
+function renderImages() {
+    const imageContainer = document.getElementById('image-container');
+    imageContainer.innerHTML = '';
+
+    const filteredImages = selectedDevice
+        ? images.filter(image => image.device === selectedDevice)
+        : images;
+
+    filteredImages.forEach(image => {
+        const div = document.createElement('div');
+        div.classList.add('image-item');
+        div.innerHTML = `
+            <img src="/uploads/${image.filename}" alt="${image.originalName}" />
+            <div class="name">${image.originalName}</div>
+            <div class="buttons">
+                <button class="download-btn" onclick="downloadImage('${image.filename}')">تحميل</button>
+                ${isAdmin ? `
+                    <button class="delete-btn" onclick="deleteImage(${image.id})">حذف</button>
+                    <button class="rename-btn" onclick="renameImage(${image.id})">تغيير الاسم</button>
+                ` : ''}
+            </div>
+        `;
+        imageContainer.appendChild(div);
+    });
+}
+
+
+function uploadImage() {
+    const fileInput = document.getElementById('image-file');
+    const nameInput = document.getElementById('image-name');
+    const deviceSelect = document.getElementById('device-type');
+
+    const formData = new FormData();
+    formData.append('image', fileInput.files[0]);
+    formData.append('name', nameInput.value);
+    formData.append('device', deviceSelect.value);
+
+    fetch('/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(() => {
+        fetchImages();
+    });
+}
+
+function deleteImage(id) {
+    fetch(`/delete/${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(() => {
+        fetchImages();
+    });
+}
+
+function renameImage(id) {
+    const newName = prompt("أدخل الاسم الجديد");
+    if (newName) {
+        fetch(`/rename/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: newName })
+        })
+        .then(response => response.json())
+        .then(() => {
+            fetchImages();
+        });
+    }
+}
+function renameImage(oldName, newName) {
+    // ... الكود كما هو ...
+  }
+  
+  function download(imageUrl, name) {
+    const a = document.createElement("a");
+    a.href = imageUrl;
+    a.download = name || "image";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  
+function filterDevice(device) {
+    selectedDevice = device;
+    renderImages(); // عرض الصور حسب الجهاز المختار
+}
+
+function loginAdmin() {
+    const password = document.getElementById('admin-password').value;
+    if (password === '12345') {
+        isAdmin = true;
+        document.getElementById('admin-tools').style.display = 'block';
+        fetchImages(); // إعادة تحميل الصور لعرض أزرار الأدمن
+    } else {
+        alert('كلمة السر خاطئة');
+    }
+}
+
+
+function logoutAdmin() {
+    isAdmin = false;
+    document.getElementById('admin-tools').style.display = 'none';
+    fetchImages(); // تحديث الصور بدون أزرار الأدمن
+}
+
+
+fetchImages();
