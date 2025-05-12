@@ -209,8 +209,8 @@ button:hover {
     font-size: 8px;
   }
   #done-container {
-  width: calc(20% - 20px);
-  bottom: 20px;
+  width: calc(20% - 40px);
+  bottom: 40px;
 }
 }
 
