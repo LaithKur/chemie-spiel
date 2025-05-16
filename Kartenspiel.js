@@ -120,3 +120,17 @@ document.getElementById('done-container').addEventListener('click', function (e)
 document.querySelectorAll('.card-input').forEach(input => {
   input.setAttribute('autocomplete', 'off');
 });
+
+
+function detectZoom() {
+  return window.devicePixelRatio || 1;
+}
+
+window.addEventListener('resize', () => {
+  console.log("Zoom level:", detectZoom());
+  if (detectZoom() > 1) {
+    document.body.style.filter = "blur(1px)";  // مثال: تعمل تأثير مبكسل أو غير واضح
+  } else {
+    document.body.style.filter = "none";       // العرض طبيعي
+  }
+});
