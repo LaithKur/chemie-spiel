@@ -1,6 +1,6 @@
 body {
   height: 100vh;
-  background-image: url('Hintergrund/Kartenspiel-image-computer.png');
+  background-image: url('https://i.postimg.cc/zBK1sPWX/Kartenspiel-image-computer.png');
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -184,6 +184,6 @@ button:hover {
 }
 @media (max-width: 1080px) {
   body {
-    background-image: url('Hintergrund/Kartenspiel-image-Mobile.png');
+    background-image: url('https://i.postimg.cc/9XyWKztt/Kartenspiel-image-Mobile.png');
   }
 }
