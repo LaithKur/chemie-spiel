@@ -26,17 +26,19 @@ function prüfen(button) {
     const userAnswer = input.value.trim();
     const correctAnswer = input.getAttribute('data-correct');
 
-    // إزالة الرموز أو الأجوبة السابقة
+    // إزالة الرموز أو الأجوبة السابقة إن وجدت
     const existingHint = input.parentElement.querySelector('.hint-wrapper');
     if (existingHint) existingHint.remove();
 
     if (userAnswer === correctAnswer) {
       input.style.backgroundColor = '#a7f3d0'; // أخضر فاتح
+      input.disabled = true; // قفل الحقل بعد الإجابة الصحيحة
     } else {
       input.style.backgroundColor = '#fecaca'; // أحمر فاتح
+      input.disabled = false; // لا تقفل إذا كانت خاطئة
       allCorrect = false;
 
-      // إنشاء رمز ؟
+      // إنشاء رمز ؟ والجواب المصغر
       const hintWrapper = document.createElement('span');
       hintWrapper.className = 'hint-wrapper';
       hintWrapper.style.position = 'relative';
@@ -48,17 +50,17 @@ function prüfen(button) {
       questionMark.style.color = 'red';
       questionMark.style.position = 'absolute';
       questionMark.style.fontWeight = 'bold';
-      questionMark.style.right = '-18px';
+      questionMark.style.right = '-17px';
       questionMark.style.top = '-10px';
-      questionMark.style.fontSize = '10px';
+      questionMark.style.fontSize = '8px'; // كبرنا الحجم
 
       const answerHint = document.createElement('span');
       answerHint.textContent = correctAnswer;
       answerHint.style.display = 'none';
       answerHint.style.position = 'absolute';
-      answerHint.style.right = '25px';
-      answerHint.style.top = '-8px';
-      answerHint.style.fontSize = '3px';
+      answerHint.style.right = '15px';
+      answerHint.style.top = '-9px';
+      answerHint.style.fontSize = '3px'; // أكبر قليلاً ليتضح
       answerHint.style.backgroundColor = '#fef2f2';
       answerHint.style.padding = '2px 4px';
       answerHint.style.borderRadius = '4px';
@@ -66,7 +68,7 @@ function prüfen(button) {
       answerHint.style.whiteSpace = 'nowrap';
       answerHint.style.zIndex = '10';
 
-      // عرض الجواب عند التمرير
+      // عرض الجواب عند التمرير بالفأرة
       questionMark.addEventListener('mouseenter', () => {
         answerHint.style.display = 'inline';
       });
@@ -93,7 +95,6 @@ function prüfen(button) {
     }
   }
 }
-
 
 
 
