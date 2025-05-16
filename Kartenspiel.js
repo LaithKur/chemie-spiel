@@ -26,23 +26,22 @@ function prüfen(button) {
     const userAnswer = input.value.trim();
     const correctAnswer = input.getAttribute('data-correct');
 
-    // إزالة الرموز أو الأجوبة السابقة إن وجدت
+    // إزالة رمز الاستفهام السابق لهذا الحقل فقط
     const existingHint = input.parentElement.querySelector('.hint-wrapper');
     if (existingHint) existingHint.remove();
 
     if (userAnswer === correctAnswer) {
       input.style.backgroundColor = '#a7f3d0'; // أخضر فاتح
-      input.disabled = true; // قفل الحقل بعد الإجابة الصحيحة
+      input.disabled = true;
     } else {
       input.style.backgroundColor = '#fecaca'; // أحمر فاتح
-      input.disabled = false; // لا تقفل إذا كانت خاطئة
+      input.disabled = false;
       allCorrect = false;
 
-      // إنشاء رمز ؟ والجواب المصغر
       const hintWrapper = document.createElement('span');
       hintWrapper.className = 'hint-wrapper';
       hintWrapper.style.position = 'relative';
-      hintWrapper.style.marginLeft = '5px';
+      hintWrapper.style.marginright = '5px';
 
       const questionMark = document.createElement('span');
       questionMark.textContent = '?';
@@ -50,27 +49,26 @@ function prüfen(button) {
       questionMark.style.color = 'red';
       questionMark.style.position = 'absolute';
       questionMark.style.fontWeight = 'bold';
-      questionMark.style.right = '-17px';
-      questionMark.style.top = '-10px';
+      questionMark.style.right = '-6px';
+      questionMark.style.top = '-2px';
       questionMark.style.fontSize = '8px'; // كبرنا الحجم
 
       const answerHint = document.createElement('span');
       answerHint.textContent = correctAnswer;
       answerHint.style.display = 'none';
       answerHint.style.position = 'absolute';
-      answerHint.style.right = '15px';
-      answerHint.style.top = '-9px';
+      answerHint.style.right = '25px';
+      answerHint.style.top = '-3px';
       answerHint.style.fontSize = '3px'; // أكبر قليلاً ليتضح
       answerHint.style.backgroundColor = '#fef2f2';
       answerHint.style.padding = '2px 4px';
       answerHint.style.borderRadius = '4px';
       answerHint.style.border = '1px solid #fca5a5';
       answerHint.style.whiteSpace = 'nowrap';
-      answerHint.style.zIndex = '10';
+      answerHint.style.zIndex = '10'; 
 
-      // عرض الجواب عند التمرير بالفأرة
       questionMark.addEventListener('mouseenter', () => {
-        answerHint.style.display = 'inline';
+        answerHint.style.display = 'block';
       });
       questionMark.addEventListener('mouseleave', () => {
         answerHint.style.display = 'none';

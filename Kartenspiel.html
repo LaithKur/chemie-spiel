@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+  <meta charset="UTF-8">
   <title>Kartenspiel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="Kartenspiel.css">
 </head>
 <body>
@@ -16,34 +16,44 @@
         <div class="card-face card-back"></div>
         <div class="card-face card-front">
           <div class="text">
-            <br>In Welchen Produkten gibt es Säuren?<br><br>
-            <input type="text" class="card-input" data-correct="1" autocomplete="off"> 
+            <p>In welchen Produkten gibt es Säuren?</p>
+            <div>
+              <input type="text" class="card-input" data-correct="1" autocomplete="off">
+            </div>
             und
-            <input type="text" class="card-input" data-correct="2" autocomplete="off"> 
+            <div>
+              <input type="text" class="card-input" data-correct="2" autocomplete="off">
+            </div>
           </div>
         </div>
       </div>
       <button class="prüfen" onclick="event.stopPropagation(); prüfen(this)">Prüfen</button>
     </div>
 
-    <!-- بطاقة أخرى كمثال -->
+    <!-- البطاقة الثانية -->
     <div class="container" id="card-2" onclick="flipAndZoom(this)">
       <div class="card">
         <div class="card-face card-back"></div>
         <div class="card-face card-front">
           <div class="text">
-            <input type="text" class="card-input" data-correct="4"  autocomplete="off" >
+            <div>
+              <input type="text" class="card-input" data-correct="4" autocomplete="off">
+            </div>
           </div>
         </div>
       </div>
       <button class="prüfen" onclick="event.stopPropagation(); prüfen(this)">Prüfen</button>
     </div>
+
+    <!-- البطاقة الثالثة -->
     <div class="container" id="card-3" onclick="flipAndZoom(this)">
       <div class="card">
         <div class="card-face card-back"></div>
         <div class="card-face card-front">
           <div class="text">
-            <input type="text" class="card-input" data-correct="4"  autocomplete="off" >
+            <div>
+              <input type="text" class="card-input" data-correct="4" autocomplete="off">
+            </div>
           </div>
         </div>
       </div>
@@ -51,9 +61,7 @@
     </div>
   </div>
 
-<div id="done-container"></div>
-
-
+  <div id="done-container"></div>
 
   <script src="Kartenspiel.js"></script>
 </body>
