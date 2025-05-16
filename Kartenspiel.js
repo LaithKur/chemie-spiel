@@ -49,16 +49,16 @@ function prüfen(button) {
       questionMark.style.color = 'red';
       questionMark.style.position = 'absolute';
       questionMark.style.fontWeight = 'bold';
-      questionMark.style.right = '-6px';
-      questionMark.style.top = '-2px';
-      questionMark.style.fontSize = '8px'; // كبرنا الحجم
+      questionMark.style.right = '0';
+      questionMark.style.top = '-1.5px';
+      questionMark.style.fontSize = '6px'; // كبرنا الحجم
 
       const answerHint = document.createElement('span');
       answerHint.textContent = correctAnswer;
       answerHint.style.display = 'none';
       answerHint.style.position = 'absolute';
-      answerHint.style.right = '25px';
-      answerHint.style.top = '-3px';
+      answerHint.style.right = '-4px';
+      answerHint.style.top = '-10px';
       answerHint.style.fontSize = '3px'; // أكبر قليلاً ليتضح
       answerHint.style.backgroundColor = '#fef2f2';
       answerHint.style.padding = '2px 4px';

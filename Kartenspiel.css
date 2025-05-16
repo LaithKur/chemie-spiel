@@ -1,12 +1,14 @@
 body {
   height: 100vh;
-  background-image: url('https://images.pexels.com/photos/172277/pexels-photo-172277.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-image: url('https://img.pikbest.com/ai/illus_our/20230426/25d157384034b1c3c2f20ab34a682868.jpg!f305cw');
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 20px;
   overflow: hidden;
   flex-wrap: wrap; /* للسماح بمرونة أكثر في الشاشات الصغيرة */
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* العنصر الأساسي */
@@ -87,17 +89,18 @@ body {
 }
 
 .card-input {
-  font-size: 5px;
+  font-size: 4px;
   text-align: center;
   border: none;
   border-color: #000000;
   background-color: white;
-  width: 50%;
+  width: 30%;
   box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   border-radius: 1px;
+  
 }
 
 button {
@@ -179,9 +182,8 @@ button:hover {
   transform: translate(-50%, -50%) scale(5);
   z-index: 999;
 }
-
-@media(max-width:600){
-  #done-container {
-    width: calc(40% - 20px);
+@media(max-width:1080px){
+  body{
+   background-image: url('https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-48d4-61f7-ae87-568d1bdf23b4/raw?se=2025-05-16T19%3A42%3A15Z&sp=r&sv=2024-08-04&sr=b&scid=00000000-0000-0000-0000-000000000000&skoid=71e8fa5c-90a9-4c17-827b-14c3005164d6&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-15T21%3A50%3A25Z&ske=2025-05-16T21%3A50%3A25Z&sks=b&skv=2024-08-04&sig=1RGYGTFbrzIc2JUYqfKO8QBjCgit0ahwUY8XVM0rkPM%3D');
   }
 }
