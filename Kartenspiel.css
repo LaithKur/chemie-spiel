@@ -180,3 +180,8 @@ button:hover {
   z-index: 999;
 }
 
+@media(max-width:600){
+  #done-container {
+    width: calc(30% - 40px);
+  }
+}
