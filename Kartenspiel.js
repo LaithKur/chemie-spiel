@@ -26,16 +26,61 @@ function prüfen(button) {
     const userAnswer = input.value.trim();
     const correctAnswer = input.getAttribute('data-correct');
 
+    // إزالة الرموز أو الأجوبة السابقة
+    const existingHint = input.parentElement.querySelector('.hint-wrapper');
+    if (existingHint) existingHint.remove();
+
     if (userAnswer === correctAnswer) {
       input.style.backgroundColor = '#a7f3d0'; // أخضر فاتح
     } else {
       input.style.backgroundColor = '#fecaca'; // أحمر فاتح
       allCorrect = false;
+
+      // إنشاء رمز ؟
+      const hintWrapper = document.createElement('span');
+      hintWrapper.className = 'hint-wrapper';
+      hintWrapper.style.position = 'relative';
+      hintWrapper.style.marginLeft = '5px';
+
+      const questionMark = document.createElement('span');
+      questionMark.textContent = '?';
+      questionMark.style.cursor = 'help';
+      questionMark.style.color = 'red';
+      questionMark.style.position = 'absolute';
+      questionMark.style.fontWeight = 'bold';
+      questionMark.style.right = '-18px';
+      questionMark.style.top = '-10px';
+      questionMark.style.fontSize = '10px';
+
+      const answerHint = document.createElement('span');
+      answerHint.textContent = correctAnswer;
+      answerHint.style.display = 'none';
+      answerHint.style.position = 'absolute';
+      answerHint.style.right = '25px';
+      answerHint.style.top = '-8px';
+      answerHint.style.fontSize = '3px';
+      answerHint.style.backgroundColor = '#fef2f2';
+      answerHint.style.padding = '2px 4px';
+      answerHint.style.borderRadius = '4px';
+      answerHint.style.border = '1px solid #fca5a5';
+      answerHint.style.whiteSpace = 'nowrap';
+      answerHint.style.zIndex = '10';
+
+      // عرض الجواب عند التمرير
+      questionMark.addEventListener('mouseenter', () => {
+        answerHint.style.display = 'inline';
+      });
+      questionMark.addEventListener('mouseleave', () => {
+        answerHint.style.display = 'none';
+      });
+
+      hintWrapper.appendChild(questionMark);
+      hintWrapper.appendChild(answerHint);
+      input.parentElement.appendChild(hintWrapper);
     }
   });
 
   if (allCorrect) {
-    // لا تكرر زر الإغلاق
     if (!card.querySelector('.close-button')) {
       const closeButton = document.createElement('button');
       closeButton.textContent = 'Schließen';
@@ -48,6 +93,9 @@ function prüfen(button) {
     }
   }
 }
+
+
+
 
 function moveToDone(card) {
   const doneContainer = document.getElementById('done-container');

@@ -90,12 +90,14 @@ body {
   font-size: 5px;
   text-align: center;
   border: none;
+  border-color: #000000;
   background-color: white;
   width: 50%;
   box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-radius: 1px;
 }
 
 button {
@@ -178,79 +180,3 @@ button:hover {
   z-index: 999;
 }
 
-/* ======== Responsive Design Below ======== */
-
-/* موبايلات */
-@media (max-width: 600px) {
-  .container {
-    width: 40px;
-    height: 80px;
-    transform: translate(-90px, -10px);
-  }
-
-  .card,
-  .card-face {
-    width: 40px;
-    height: 80px;
-  }
-
-  .card-face .text {
-    font-size: 4px;
-  }
-
-  .card-input {
-    font-size: 4px;
-    width: 60%;
-  }
-
-  button {
-    font-size: 14px;
-    transform: translate(0, 100px);
-  }
-
-  #done-container {
-    width: 80%;
-    height: 100px;
-    bottom: 10px;
-    left: 10%;
-  }
-
-  .close-button {
-    transform: translateX(-50%) scale(0.3);
-    padding: 20px 15px;
-
-  }
-
-  .container.zoomed {
-    transform: translate(-50%, -50%) scale(3.5);
-  }
-
-  .done-container.zoomed {
-    transform: translate(-50%, -50%) scale(3.5);
-  }
-}
-
-/* تابلت */
-@media (min-width: 601px) and (max-width: 1024px) {
-  .container {
-    width: 45px;
-    height: 90px;
-    transform: translate(-120px, -20px);
-  }
-
-  .card,
-  .card-face {
-    width: 45px;
-    height: 90px;
-  }
-
-  .card-input {
-    font-size: 5px;
-  }
-
-  .container.zoomed,
-  .done-container.zoomed {
-    transform: translate(-50%, -50%) scale(4);
-  }
-
-}
