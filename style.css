@@ -22,9 +22,15 @@ a{
 
 .item {
   min-width: 200px; /* حجم العنصر */
-  height: 300px;
+  height: 200px;
   background-color:rgba(10, 6, 6, 0.3);
   text-align: center;
-  line-height: 150px;
+  line-height: 90px;
   flex-shrink: 0; /* مهم لمنع ضغط العناصر */
+}
+
+a{
+  pointer-events: none;
+  width:100%;
+  display: block;
 }
