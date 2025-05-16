@@ -25,7 +25,7 @@ a{
   height: 200px;
   background-color:rgba(10, 6, 6, 0.3);
   text-align: center;
-  line-height: 90px;
+  line-height: 100px;
   flex-shrink: 0; /* مهم لمنع ضغط العناصر */
 }
 
