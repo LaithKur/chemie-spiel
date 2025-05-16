@@ -170,3 +170,34 @@ document.querySelectorAll('.card-input').forEach(input => {
 
 
 
+document.querySelectorAll('.card-input').forEach(input => {
+    const tooltip = document.createElement('div');
+    tooltip.style.position = 'absolute';
+    tooltip.style.background = '#333';
+    tooltip.style.color = '#fff';
+    tooltip.style.padding = '5px 10px';
+    tooltip.style.borderRadius = '5px';
+    tooltip.style.fontSize = '14px';
+    tooltip.style.whiteSpace = 'nowrap';
+    tooltip.style.pointerEvents = 'none';
+    tooltip.style.opacity = '0';
+    tooltip.style.transition = 'opacity 0.2s';
+    tooltip.style.zIndex = '1000';
+    document.body.appendChild(tooltip);
+
+    input.addEventListener('mouseenter', (e) => {
+      tooltip.textContent = input.value;
+      const rect = input.getBoundingClientRect();
+      tooltip.style.top = `${rect.top - 30 + window.scrollY}px`;
+      tooltip.style.left = `${rect.left + window.scrollX}px`;
+      tooltip.style.opacity = '1';
+    });
+
+    input.addEventListener('mouseleave', () => {
+      tooltip.style.opacity = '0';
+    });
+
+    input.addEventListener('input', () => {
+      tooltip.textContent = input.value;
+    });
+  });
