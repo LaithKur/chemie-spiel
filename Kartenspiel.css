@@ -183,7 +183,7 @@ button:hover {
   z-index: 999;
 }
 .button-5{
-    transform:translate(1800%, 1300%);
+    
     background-color: #ffffff;
   color: rgb(0, 0, 0);
   padding: 4px 12px; /* حشوة صغيرة جداً */
