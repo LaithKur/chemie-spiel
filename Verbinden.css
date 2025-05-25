@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+  }
+  #container {
+    width: 100%;
+    height: 90vh;
+    border: 2px solid #333;
+    margin: 20px auto;
+    position: relative;
+    background: #f0f0f0;
+    overflow: hidden;
+    user-select: none;
+  }
+  .box {
+  display: inline-block;
+  padding: 10px 15px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  position: absolute;
+  cursor: move;
+  white-space: normal; /* يسمح بلف النص */
+  max-width: 200px; /* أو حجم تختاره لتقييد العرض */
+  word-wrap: break-word;
+}
+
+  button#verify {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .sticker {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    background: orange;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    pointer-events: none;
+    user-select: none;
+  }

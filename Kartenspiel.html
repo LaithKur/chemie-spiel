@@ -16,17 +16,16 @@
         <div class="card-face card-back"></div>
         <div class="card-face card-front">
           <div class="text">
-            <p>In welchen Produkten gibt es Säuren?</p>
+            <p>In welchen Produkten gibt es Säuren im Alltag?</p>
             <div><p>
-               <span><input type="text" class="card-input" data-correct="Früchte" autocomplete="off" ></span>,
-               <span><input type="text" class="card-input" data-correct="Joghurt" autocomplete="off"></span>,
-               <span><input type="text" class="card-input" data-correct="Quark" autocomplete="off"></span>,
-               <span><input type="text" class="card-input" data-correct="Sauerkraut" autocomplete="off"></span>,
-               <span><input type="text" class="card-input" data-correct="Mineralwasser" autocomplete="off"></span>und
-               <span><input type="text" class="card-input" data-correct="Limonaden" autocomplete="off"></span>
+               <span><input type="text" class="card-input" data-correct="Früchte "  autocomplete="off" /></span>,
+               <span><input type="text" class="card-input" data-correct="Joghurt," autocomplete="off"/></span>,
+               <span><input type="text" class="card-input" data-correct="Quark" autocomplete="off"/></span>,
+               <span><input type="text" class="card-input" data-correct="Sauerkraut" autocomplete="off"/></span>,
+               <span><input type="text" class="card-input" data-correct="Mineralwasser" autocomplete="off"/></span>und
+               <span><input type="text" class="card-input" data-correct="Limonaden" autocomplete="off"/></span>.
               </p>
             </div>
-        
           </div>
         </div>
       </div>
@@ -39,8 +38,16 @@
         <div class="card-face card-back"></div>
         <div class="card-face card-front">
           <div class="text">
-            <div>
-              <input type="text" class="card-input" data-correct="4" autocomplete="off">
+            <p>In welchen Produkten gibt es Laugen im Alltag?</p>
+            <div><p>
+               <span><input type="text" class="card-input" data-correct="Reinigungsmitteln,"  autocomplete="off" /></span>,
+               <span><input type="text" class="card-input" data-correct="Waschmitteln" autocomplete="off"/></span>,
+               <span><input type="text" class="card-input" data-correct="Abflussreiniger" autocomplete="off"/></span>,
+               <span><input type="text" class="card-input" data-correct="Backofenspray" autocomplete="off"/></span>,
+               <span><input type="text" class="card-input" data-correct="Fensterputzmitteln" autocomplete="off"/></span>,
+               <span><input type="text" class="card-input" data-correct="Seifen" autocomplete="off"/></span>und
+               <span><input type="text" class="card-input" data-correct="Batterien" autocomplete="off"/></span>.
+              </p>
             </div>
           </div>
         </div>
@@ -55,13 +62,106 @@
         <div class="card-face card-front">
           <div class="text">
             <div>
-              <input type="text" class="card-input" data-correct="4" autocomplete="off">
+              <p>Welche Art von Säuren gibt es?</p>
+              <input type="text" class="card-input" data-correct="Ameisensäure" autocomplete="off">,
+              <input type="text" class="card-input" data-correct="Ascorbinsäure" autocomplete="off">,
+              <input type="text" class="card-input" data-correct="Citronensäure" autocomplete="off">,
+              <input type="text" class="card-input" data-correct="Essigsäure" autocomplete="off">,
+              <input type="text" class="card-input" data-correct="Kohlensäure" autocomplete="off">,
+              <input type="text" class="card-input" data-correct="Milchsäure" autocomplete="off">,
+              <input type="text" class="card-input" data-correct="Phosphorsäure" autocomplete="off">,
+              <input type="text" class="card-input" data-correct="Salpetersäure" autocomplete="off">,
+              <input type="text" class="card-input" data-correct="Slazsäure" autocomplete="off">und
+              <input type="text" class="card-input" data-correct="Schwefelsäure" autocomplete="off">.
             </div>
           </div>
         </div>
       </div>
       <button class="prüfen" onclick="event.stopPropagation(); prüfen(this)">Prüfen</button>
     </div>
+
+    <div class="container" id="card-4" onclick="flipAndZoom(this)">
+      <div class="card">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front">
+          <div class="text">
+            <div>
+              <p>Welche Art von Laugen gibt es?</p>
+              <input type="text" class="card-input" data-correct="Natronlauge" autocomplete="off">,
+              <input type="text" class="card-input" data-correct="Kalilauge" autocomplete="off">und
+              <input type="text" class="card-input" data-correct="Calciumlauge" autocomplete="off">.
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="prüfen" onclick="event.stopPropagation(); prüfen(this)">Prüfen</button>
+    </div>
+    <div class="container" id="card-5" onclick="flipAndZoom(this)">
+      <div class="card">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front">
+          <div class="text">
+            <div>
+              <p>Namen von Indikatoren.</p>
+              <img src="https://i.postimg.cc/zXwNZ3vc/IMG-0103.jpg" width="80%" >
+              <input type="text" class="card-input" data-correct="Bromthymolblau" autocomplete="off">
+              <img src="https://i.postimg.cc/hPcwms42/IMG-0105.jpg" width="80%" >
+              <input type="text" class="card-input" data-correct="Thymolphthalein" autocomplete="off">
+              <img src="https://i.postimg.cc/RFws66kr/IMG-0101.jpg" width="80%" >
+              <input type="text" class="card-input" data-correct="Universalindikator" autocomplete="off">
+              <img src="https://i.postimg.cc/5t2QQZDf/IMG-0104.jpg" width="80%" >
+              <input type="text" class="card-input" data-correct="Phenolphthalein" autocomplete="off">
+              <img src="https://i.postimg.cc/DfL00vmq/IMG-0102.jpg" width="80%" >
+              <input type="text" class="card-input" data-correct="Lackmus" autocomplete="off">
+              <img src="https://i.postimg.cc/NG6GYdPD/IMG-0100.jpg" width="80%" >
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="prüfen" onclick="event.stopPropagation(); prüfen(this)">Prüfen</button>
+    </div>
+    <div class="container" id="card-6" onclick="flipAndZoom(this)">
+      <div class="card">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front">
+          <div class="text">
+            <div>
+              <p>Bildung von Chlorwasserstoff</p>
+              <input type="text" class="card-input" data-correct="Wasserstoff" autocomplete="off"> +
+              <input type="text" class="card-input" data-correct="Chlor" autocomplete="off"> =
+              <p>Chlorwasserstoff</p>
+              <p>Bildung von Ionen</p>
+              <input type="text" class="card-input" data-correct="HCl" autocomplete="off"> +
+              <input type="text" class="card-input" data-correct="H2O" autocomplete="off"> =
+              <p>Cl- + H3O+</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="prüfen" onclick="event.stopPropagation(); prüfen(this)">Prüfen</button>
+    </div>
+
+    <div class="container" id="card-7" onclick="flipAndZoom(this)">
+      <div class="card">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front">
+          <div class="text">
+            <div>
+              <p>Bildung von Kohlensäure</p>
+              <input type="text" class="card-input" data-correct="H2O" autocomplete="off"> +
+              <input type="text" class="card-input" data-correct="CO2" autocomplete="off"> =
+              <p>H2CO2</p>
+              <p>Kontaktverfahren</p>
+              <input type="text" class="card-input" data-correct="S" autocomplete="off"> +
+              <input type="text" class="card-input" data-correct="O2" autocomplete="off"> =
+              <p>SO2</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="prüfen" onclick="event.stopPropagation(); prüfen(this)">Prüfen</button>
+    </div>
+
   </div>
 
   <div id="done-container"></div>
