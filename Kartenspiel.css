@@ -7,7 +7,6 @@ body {
   padding: 20px;
   overflow: hidden;
   flex-wrap: wrap; /* للسماح بمرونة أكثر في الشاشات الصغيرة */
-  background-repeat: no-repeat;
   background-size: cover;
 }
 
