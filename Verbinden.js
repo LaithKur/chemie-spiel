@@ -15,47 +15,80 @@ function randomPosition(box) {
 }
 boxes.forEach(randomPosition);
 
-// سحب الصناديق
 boxes.forEach(box => {
   let offsetX, offsetY;
+
+  // بدء السحب
+  function startDrag(clientX, clientY) {
+    offsetX = clientX - box.offsetLeft;
+    offsetY = clientY - box.offsetTop;
+  }
+
+  // تحريك الصندوق
+  function moveDrag(clientX, clientY) {
+    const cRect = container.getBoundingClientRect();
+    let x = clientX - offsetX;
+    let y = clientY - offsetY;
+    x = Math.max(0, Math.min(x, cRect.width - box.offsetWidth));
+    y = Math.max(0, Math.min(y, cRect.height - box.offsetHeight - 50));
+    box.style.left = x + 'px';
+    box.style.top = y + 'px';
+
+    if (linked.has(box)) {
+      const other = linked.get(box);
+      other.style.left = x + 'px';
+      other.style.top = (y + box.offsetHeight + 5) + 'px';
+      updateStickerPosition(box, other);
+    } else if ([...linked.values()].includes(box)) {
+      const first = [...linked.entries()].find(([k, v]) => v === box)[0];
+      first.style.left = x + 'px';
+      first.style.top = (y - first.offsetHeight - 5) + 'px';
+      updateStickerPosition(first, box);
+    }
+  }
+
+  // حدث الماوس لبدء السحب
   box.onmousedown = (e) => {
     e.preventDefault();
-    offsetX = e.clientX - box.offsetLeft;
-    offsetY = e.clientY - box.offsetTop;
+    startDrag(e.clientX, e.clientY);
 
-    function move(e) {
-      let x = e.clientX - offsetX;
-      let y = e.clientY - offsetY;
-      const cRect = container.getBoundingClientRect();
-      x = Math.max(0, Math.min(x, cRect.width - box.offsetWidth));
-      y = Math.max(0, Math.min(y, cRect.height - box.offsetHeight - 50));
-      box.style.left = x + 'px';
-      box.style.top = y + 'px';
-
-      if (linked.has(box)) {
-        const other = linked.get(box);
-        other.style.left = x + 'px';
-        other.style.top = (y + box.offsetHeight + 5) + 'px';
-        updateStickerPosition(box, other);
-      } else if ([...linked.values()].includes(box)) {
-        const first = [...linked.entries()].find(([k, v]) => v === box)[0];
-        first.style.left = x + 'px';
-        first.style.top = (y - first.offsetHeight - 5) + 'px';
-        updateStickerPosition(first, box);
-      }
+    function mouseMoveHandler(e) {
+      moveDrag(e.clientX, e.clientY);
     }
 
-    function up() {
-      document.removeEventListener('mousemove', move);
-      document.removeEventListener('mouseup', up);
+    function mouseUpHandler() {
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
       checkAndLink(box);
     }
 
-    document.addEventListener('mousemove', move);
-    document.addEventListener('mouseup', up);
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
   };
 
-  // فك الارتباط عند double click
+  // حدث اللمس لبدء السحب
+  box.ontouchstart = (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    startDrag(touch.clientX, touch.clientY);
+
+    function touchMoveHandler(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      moveDrag(touch.clientX, touch.clientY);
+    }
+
+    function touchEndHandler() {
+      document.removeEventListener('touchmove', touchMoveHandler);
+      document.removeEventListener('touchend', touchEndHandler);
+      checkAndLink(box);
+    }
+
+    document.addEventListener('touchmove', touchMoveHandler, { passive: false });
+    document.addEventListener('touchend', touchEndHandler);
+  };
+
+  // فك الارتباط عند النقر المزدوج
   box.ondblclick = () => {
     if (linked.has(box)) {
       const other = linked.get(box);
@@ -70,7 +103,7 @@ boxes.forEach(box => {
   };
 });
 
-// تحقق من القرب
+// تحقق من قرب الصناديق
 function arePositionsClose(a, b) {
   const Width = a.offsetWidth / 2;
   const Height = a.offsetHeight / 2;
@@ -80,7 +113,7 @@ function arePositionsClose(a, b) {
   );
 }
 
-// ربط إذا قريبين
+// ربط الصناديق إذا كانتا قريبتين
 function checkAndLink(movedBox) {
   if (linked.has(movedBox) || [...linked.values()].includes(movedBox)) return;
 
@@ -99,7 +132,7 @@ function checkAndLink(movedBox) {
   }
 }
 
-// إنشاء اللاصق
+// إنشاء اللاصق بين الصناديق المرتبطة
 function createSticker(box1, box2) {
   const pairId = getPairId(box1, box2);
   if (stickers.has(pairId)) return;
@@ -111,7 +144,7 @@ function createSticker(box1, box2) {
   updateStickerPosition(box1, box2);
 }
 
-// تحديث مكان اللاصق
+// تحديث موقع اللاصق بين الصناديق
 function updateStickerPosition(box1, box2) {
   const pairId = getPairId(box1, box2);
   if (!stickers.has(pairId)) return;
@@ -122,7 +155,7 @@ function updateStickerPosition(box1, box2) {
   sticker.style.top = y + 'px';
 }
 
-// حذف اللاصق والارتباط
+// حذف الارتباط واللاصق
 function removeLink(box1, box2) {
   const pairId = getPairId(box1, box2);
   if (linked.has(box1)) linked.delete(box1);
@@ -138,14 +171,14 @@ function removeLink(box1, box2) {
   box2.style.borderColor = '#333';
 }
 
-// إنشاء معرف زوج مميز
+// إنشاء معرف زوج فريد من نوعه
 function getPairId(a, b) {
   const id1 = boxes.indexOf(a);
   const id2 = boxes.indexOf(b);
   return id1 < id2 ? `${id1}-${id2}` : `${id2}-${id1}`;
 }
 
-// تحقق من الإجابات
+// تحقق من صحة الإجابات عند الضغط على زر التحقق
 document.getElementById('verify').onclick = () => {
   linked.forEach((b, a) => {
     const correct = a.dataset.id === b.dataset.id;
