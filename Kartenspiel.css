@@ -8,6 +8,7 @@ body {
   overflow: hidden;
   flex-wrap: wrap; /* للسماح بمرونة أكثر في الشاشات الصغيرة */
   background-size: cover;
+  padding: env(safe-area-inset);
 }
 
 /* العنصر الأساسي */
