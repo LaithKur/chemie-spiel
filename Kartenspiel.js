@@ -2,7 +2,6 @@ let flippedCard = null;
 
 function flipAndZoom(container) {
   if (flippedCard !== null) return;
-
   const card = container.querySelector('.card');
   container.classList.add('zoomed');
   card.classList.add('flipped');
@@ -12,67 +11,96 @@ function flipAndZoom(container) {
 function shuffleCards() {
   const container = document.getElementById('cards-container');
   const cards = Array.from(container.children).filter(child => child.classList.contains('container'));
-
   const shuffled = cards.sort(() => Math.random() - 0.5);
   shuffled.forEach(card => container.appendChild(card));
 }
 
 function prüfen(button) {
   const card = button.closest('.container');
-  const inputs = card.querySelectorAll('.card-input');
-  let allCorrect = true;
+  const inputs = Array.from(card.querySelectorAll('.card-input'));
 
+  const correctAnswers = inputs.map(input => input.getAttribute('data-correct').trim());
+  const usedAnswers = new Set();
+  const userInputs = inputs.map(input => input.value.trim());
+
+  const isStrict = card.getAttribute('data-strict') === 'true'; // <-- التحقق من data-strict
+
+  // Reset input states
   inputs.forEach(input => {
-    const userAnswer = input.value.trim();
-    const correctAnswer = input.getAttribute('data-correct');
-
-    // إزالة رمز الاستفهام السابق لهذا الحقل فقط
     const existingHint = input.parentElement.querySelector('.hint-wrapper');
     if (existingHint) existingHint.remove();
+    input.style.backgroundColor = '';
+  });
 
-    if (userAnswer === correctAnswer) {
-      input.style.backgroundColor = '#a7f3d0'; // أخضر فاتح
-      input.disabled = true;
+  // Check answers
+  userInputs.forEach((userAnswer, inputIndex) => {
+    let matched = false;
+
+    if (isStrict) {
+      // تطابق حسب الترتيب
+      if (userAnswer === correctAnswers[inputIndex]) {
+        usedAnswers.add(inputIndex);
+        inputs[inputIndex].style.backgroundColor = '#a7f3d0'; // Green
+        inputs[inputIndex].disabled = true;
+        matched = true;
+      }
     } else {
-      input.style.backgroundColor = '#fecaca'; // أحمر فاتح
-      input.disabled = false;
-      allCorrect = false;
+      // تطابق غير مرتب
+      for (let correctIndex = 0; correctIndex < correctAnswers.length; correctIndex++) {
+        if (userAnswer === correctAnswers[correctIndex] && !usedAnswers.has(correctIndex)) {
+          usedAnswers.add(correctIndex);
+          inputs[inputIndex].style.backgroundColor = '#a7f3d0'; // Green
+          inputs[inputIndex].disabled = true;
+          matched = true;
+          break;
+        }
+      }
+    }
 
+    if (!matched && userAnswer !== '') {
+      inputs[inputIndex].style.backgroundColor = '#fecaca'; // Red
+    }
+  });
+
+  // Show "?" for unused correct answers
+  correctAnswers.forEach((correctAnswer, i) => {
+    if (!usedAnswers.has(i)) {
+      const input = inputs[i];
       const hintWrapper = document.createElement('span');
       hintWrapper.className = 'hint-wrapper';
       hintWrapper.style.position = 'relative';
-      hintWrapper.style.marginright = '5px';
+      hintWrapper.style.marginRight = '5px';
 
       const questionMark = document.createElement('span');
       questionMark.textContent = '?';
-      questionMark.style.cursor = 'help';
-      questionMark.style.color = 'red';
-      questionMark.style.position = 'absolute';
-      questionMark.style.fontWeight = 'bold';
-      questionMark.style.right = '0';
-      questionMark.style.top = '-1.5px';
-      questionMark.style.fontSize = '6px'; // كبرنا الحجم
+      questionMark.style.cssText = `
+        cursor: help;
+        color: red;
+        position: absolute;
+        font-weight: bold;
+        right: 0;
+        top: -1.5px;
+        font-size: 6px;
+      `;
 
       const answerHint = document.createElement('span');
       answerHint.textContent = correctAnswer;
-      answerHint.style.display = 'none';
-      answerHint.style.position = 'absolute';
-      answerHint.style.right = '-4px';
-      answerHint.style.top = '-10px';
-      answerHint.style.fontSize = '3px'; // أكبر قليلاً ليتضح
-      answerHint.style.backgroundColor = '#fef2f2';
-      answerHint.style.padding = '2px 4px';
-      answerHint.style.borderRadius = '4px';
-      answerHint.style.border = '1px solid #fca5a5';
-      answerHint.style.whiteSpace = 'nowrap';
-      answerHint.style.zIndex = '10'; 
+      answerHint.style.cssText = `
+        display: none;
+        position: absolute;
+        right: -4px;
+        top: -10px;
+        font-size: 3px;
+        background-color: #fef2f2;
+        padding: 2px 4px;
+        border-radius: 4px;
+        border: 1px solid #fca5a5;
+        white-space: nowrap;
+        z-index: 10;
+      `;
 
-      questionMark.addEventListener('mouseenter', () => {
-        answerHint.style.display = 'block';
-      });
-      questionMark.addEventListener('mouseleave', () => {
-        answerHint.style.display = 'none';
-      });
+      questionMark.addEventListener('mouseenter', () => answerHint.style.display = 'block');
+      questionMark.addEventListener('mouseleave', () => answerHint.style.display = 'none');
 
       hintWrapper.appendChild(questionMark);
       hintWrapper.appendChild(answerHint);
@@ -80,82 +108,67 @@ function prüfen(button) {
     }
   });
 
-  if (allCorrect) {
-    if (!card.querySelector('.close-button')) {
-      const closeButton = document.createElement('button');
-      closeButton.textContent = 'Schließen';
-      closeButton.className = 'close-button';
-      closeButton.onclick = function (e) {
-        e.stopPropagation();
-        moveToDone(card);
-      };
-      card.appendChild(closeButton);
-    }
+  // Show close button if all answers correct
+  if (usedAnswers.size === correctAnswers.length && !card.querySelector('.close-button')) {
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Schließen';
+    closeButton.className = 'close-button';
+    closeButton.onclick = (e) => {
+      e.stopPropagation();
+      moveToDone(card);
+    };
+    card.appendChild(closeButton);
   }
 }
-
 
 
 function moveToDone(card) {
   const doneContainer = document.getElementById('done-container');
-  if (!doneContainer) {
-    alert('لم يتم العثور على الحاوية #done-container');
-    return;
-  }
+  if (!doneContainer) return alert('لم يتم العثور على الحاوية #done-container');
 
-  // إزالة التكبير والتدوير
   card.classList.remove('zoomed');
   card.querySelector('.card').classList.remove('flipped');
 
-  // إزالة زر الإغلاق
   const closeButton = card.querySelector('.close-button');
   if (closeButton) closeButton.remove();
 
-  // إخفاء زر "تحقق"
   const checkButton = card.querySelector('button');
   if (checkButton) checkButton.style.display = 'none';
 
-  // إزالة موضع البطاقة القديم
-  card.style.position = 'static';
-  card.style.transform = 'none';
+  card.style.cssText = `
+    position: static;
+    transform: none;
+    width: 50px;
+    height: 100px;
+  `;
 
-  // إعادة تعيين الحجم داخل الحاوية
-  card.style.width = '50px';
-  card.style.height = '100px';
-
-  doneContainer.appendChild(card);
-
-  // إزالة خاصية التكبير نهائياً
   card.onclick = null;
-
   flippedCard = null;
+  doneContainer.appendChild(card);
 }
 
-// عند الضغط على بطاقة في done-container، تكبر في الوسط
 document.getElementById('done-container').addEventListener('click', function (e) {
   const cardContainer = e.target.closest('.container');
   if (!cardContainer || flippedCard !== null) return;
 
   const card = cardContainer.querySelector('.card');
-
-  // أضف التكبير والتدوير
   cardContainer.classList.add('zoomed');
   card.classList.add('flipped');
   flippedCard = cardContainer;
 
-  // جعل البطاقة في وسط الصفحة
-  cardContainer.style.position = 'fixed';
-  cardContainer.style.top = '50%';
-  cardContainer.style.left = '50%';
-  cardContainer.style.transform = 'translate(-50%, -50%) scale(5)';
-  cardContainer.style.zIndex = '1000'; // تأكد من أن البطاقة تظهر فوق العناصر الأخرى
+  cardContainer.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(5);
+    z-index: 1000;
+  `;
 
-  // أضف زر الإغلاق مجددًا إذا لم يكن موجودًا
   if (!cardContainer.querySelector('.close-button')) {
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Schließen';
     closeButton.className = 'close-button';
-    closeButton.onclick = function (e) {
+    closeButton.onclick = (e) => {
       e.stopPropagation();
       moveToDone(cardContainer);
     };
@@ -163,41 +176,42 @@ document.getElementById('done-container').addEventListener('click', function (e)
   }
 });
 
-
+// Autocomplete off
 document.querySelectorAll('.card-input').forEach(input => {
   input.setAttribute('autocomplete', 'off');
 });
 
-
-
+// Tooltip for card input
 document.querySelectorAll('.card-input').forEach(input => {
-    const tooltip = document.createElement('div');
-    tooltip.style.position = 'absolute';
-    tooltip.style.background = '#333';
-    tooltip.style.color = '#fff';
-    tooltip.style.padding = '5px 10px';
-    tooltip.style.borderRadius = '5px';
-    tooltip.style.fontSize = '14px';
-    tooltip.style.whiteSpace = 'nowrap';
-    tooltip.style.pointerEvents = 'none';
-    tooltip.style.opacity = '0';
-    tooltip.style.transition = 'opacity 0.2s';
-    tooltip.style.zIndex = '1000';
-    document.body.appendChild(tooltip);
-
-    input.addEventListener('mouseenter', (e) => {
-      tooltip.textContent = input.value;
-      const rect = input.getBoundingClientRect();
-      tooltip.style.top = `${rect.top - 30 + window.scrollY}px`;
-      tooltip.style.left = `${rect.left + window.scrollX}px`;
-      tooltip.style.opacity = '1';
-    });
-
-    input.addEventListener('mouseleave', () => {
-      tooltip.style.opacity = '0';
-    });
-
-    input.addEventListener('input', () => {
-      tooltip.textContent = input.value;
-    });
+  const tooltip = document.createElement('div');
+  Object.assign(tooltip.style, {
+    position: 'absolute',
+    background: '#333',
+    color: '#fff',
+    padding: '5px 10px',
+    borderRadius: '5px',
+    fontSize: '14px',
+    whiteSpace: 'nowrap',
+    pointerEvents: 'none',
+    opacity: '0',
+    transition: 'opacity 0.2s',
+    zIndex: '1000'
   });
+  document.body.appendChild(tooltip);
+
+  input.addEventListener('mouseenter', () => {
+    tooltip.textContent = input.value;
+    const rect = input.getBoundingClientRect();
+    tooltip.style.top = `${rect.top - 30 + window.scrollY}px`;
+    tooltip.style.left = `${rect.left + window.scrollX}px`;
+    tooltip.style.opacity = '1';
+  });
+
+  input.addEventListener('mouseleave', () => {
+    tooltip.style.opacity = '0';
+  });
+
+  input.addEventListener('input', () => {
+    tooltip.textContent = input.value;
+  });
+});
